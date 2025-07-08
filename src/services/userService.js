@@ -41,7 +41,7 @@ let users = [
   },
 ]
 
-exports.getUser = async(userid) => {
+exports.getUserInfo = async(userId) => {
     const userAux = users.find(u => u.id == userId)
     return userAux
 }
