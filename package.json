@@ -1,0 +1,28 @@
+{
+  "name": "back-end-component",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mariaady/Back-end-component.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mariaady/Back-end-component/issues"
+  },
+  "homepage": "https://github.com/Mariaady/Back-end-component#readme",
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.1.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.2",
+    "nodemon": "^3.1.10"
+  }
+}
