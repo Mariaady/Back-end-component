@@ -3,7 +3,7 @@ const cors = require("cors")
 
 const healthyRouter = require('./src/routers/healthyRouter')
 const userRouter = require('./src/routers/userRouter')
-//const placesRouter = require('./src/routers/placesRouter')
+const placesRouter = require('./src/routers/placesRouter')
 
 const PORT = process.env.PORT || 3000
 
@@ -14,7 +14,7 @@ app.use(cors())
 
 app.use('/healthy', healthyRouter)
 app.use('/user', userRouter)
-// app.use('/places', placesRouter)
+app.use('/places', placesRouter)
 
 app.listen(PORT, () => {
     console.log(`Escuchando en el puerto ${PORT}`)

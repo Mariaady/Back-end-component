@@ -88,3 +88,7 @@ let places = [
     // photo: "https://source.unsplash.com/featured/?dog,travel",
   },
 ];
+
+exports.getAllPlaces = async () => {
+  return places
+}
