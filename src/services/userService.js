@@ -4,7 +4,7 @@ let users = [
     name: "Sofía Martinez",
     username: "sofiaamartinez",
     password: "1234",
-    profilePhoto: "https://randomuser.me/api/portraits/women/1.jpg",
+    profilePhoto: "https://images.app.goo.gl/BRfMfAsUVt4LhUMj7",
     gmail: "sofia.martinez@gmail.com",
     pets: [
       {
@@ -12,7 +12,8 @@ let users = [
         species: "perro",
         breed: "Border Collie",
         size: "mediano",
-        age: "4"
+        age: "4",
+        photo: "https://images.app.goo.gl/rnb2CXWNjc8UAHgJ7"
       }
     ]
   },
@@ -21,7 +22,7 @@ let users = [
     name: "Carlos Ramirez",
     username: "carlossramirez",
     password: "1234",
-    profilePhoto: "https://randomuser.me/api/portraits/men/2.jpg",
+    profilePhoto: "https://images.app.goo.gl/ZgA7vygn87NraJwC9",
     gmail: "carlos.ramirez@gmail.com",
     pets: [
       {
@@ -29,7 +30,8 @@ let users = [
         species: "gato",
         breed: "Scottish Fold",
         size: "pequeño",
-        age: "2"
+        age: "2",
+        photo: "https://images.app.goo.gl/3SEnRvE934TBGJ1h7"
       }
     ]
   },
@@ -38,7 +40,7 @@ let users = [
     name: "Valentina Gómez",
     username: "valeentinagoomez",
     password: "1234",
-    profilePhoto: "https://randomuser.me/api/portraits/women/3.jpg",
+    profilePhoto: "https://images.app.goo.gl/QejSQNGBoE9aJabW8",
     gmail: "valentina.gomez@gmail.com",
     pets: [
       {
@@ -46,7 +48,8 @@ let users = [
         species: "gato",
         breed: "Maine Coon",
         size: "mediano",
-        age: "5"
+        age: "5",
+        photo: "https://images.app.goo.gl/mJ8jo2RULqD2GAcCA"
       }
     ]
   },
@@ -55,7 +58,7 @@ let users = [
     name: "Andrés Torres",
     username: "anndresstorress",
     password: "1234",
-    profilePhoto: "https://randomuser.me/api/portraits/men/4.jpg",
+    profilePhoto: "https://images.app.goo.gl/jc5S9NtzcYDRjDjb7",
     gmail: "andres.torres@gmail.com",
     pets: [
       {
@@ -63,7 +66,8 @@ let users = [
         species: "perro",
         breed: "Pastor Alemán",
         size: "grande",
-        age: "7"
+        age: "7",
+        photo: "https://images.app.goo.gl/2Sy1DKLhwqUjXAYS9"
       }
     ]
   },
@@ -89,5 +93,11 @@ exports.createUserInfo = async (newUser) => {
     ...userAux
   })
   return userAux
+}
+
+exports.modifyUser = async(editedUser) => {
+  const userAux = users.filter((u) => u.id != editedUser.id)
+  userAux.push(editedUser)
+  users = userAux
 }
 

@@ -1,94 +1,111 @@
 let places = [
   {
+    id: 1,
     name: "Parque del Retiro",
     location: "Madrid",
     category: "parque",
     description:
       "Uno de los parques más grandes de Madrid con zonas verdes y áreas para pasear con tu mascota.",
-    // photo: "https://source.unsplash.com/featured/?park,madrid",
+    photo: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/53/53/2c/img-20160729-205021-largejpg.jpg?w=1000&h=-1&s=1",
   },
   {
+    id: 2,
     name: "Montseny Natural Park",
     location: "Barcelona",
     category: "parque",
     description:
       "Parque natural ideal para rutas de senderismo con tu perro en plena naturaleza.",
-    // photo: "https://source.unsplash.com/featured/?mountains,forest",
+    photo: "https://www.renfe.com/es/es/cercanias/cercanias-barcelona/ofertas-mas-populares/parc-natural-montseny/_jcr_content/root/rfslidercardsexperie/rfcardexperience-1.coreimg.jpeg/1658227425496/rodalies-montseny-cas.jpeg",
   },
   {
+    id: 3,
     name: "Parque de María Luisa",
     location: "Sevilla",
     category: "parque",
     description:
       "Amplio parque urbano con sombra y caminos perfectos para pasear a tu mascota.",
-    // photo: "https://source.unsplash.com/featured/?park,seville",
+    photo: "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/52000/52507-Maria-Luisa-Park.jpg",
   },
   {
+    id: 4,
     name: "Hotel PetStay",
     location: "Valencia",
     category: "hotel",
     description:
       "Hotel moderno con habitaciones adaptadas para clientes con mascotas. Admiten perros de todos los tamaños.",
-    // photo: "https://source.unsplash.com/featured/?hotel,room",
+    photo: "https://s1.abcstatics.com/abc/www/multimedia/espana/2022/11/09/refugio-animales-RTt2bGR6548pakts0Q3DciO-1200x840@abc.jpg",
   },
   {
+    id: 5,
     name: "RuralDog Inn",
     location: "Asturias",
     category: "hotel",
     description:
       "Casa rural pet-friendly con jardín y rutas cercanas para pasear a tu mascota.",
-    // photo: "https://source.unsplash.com/featured/?cabin,nature",
+    photo: "https://www.viajes4patas.com/images/jsites2/v4p-41-casas-rurales-iris-de-paz-admite-mascotas-asturias-pilona-1.jpg",
   },
   {
+    id: 6,
     name: "Café Patitas",
     location: "Málaga",
     category: "restaurante",
     description:
       "Cafetería acogedora donde los animales son bienvenidos tanto en terraza como en el interior.",
-    // photo: "https://source.unsplash.com/featured/?cafe,pet",
+    photo: "https://s1.elespanol.com/2024/06/27/cocinillas/actualidad-gastronomica/866173656_247319524_1706x960.jpg"
   },
   {
+    id: 7,
     name: "Bark&Bite",
     location: "Bilbao",
     category: "restaurante",
     description:
       "Restaurante informal con snacks para perros y bebederos en cada mesa de la terraza.",
-    // photo: "https://source.unsplash.com/featured/?restaurant,dog",
+    photo: "https://www.evahappydog.com/wp-content/uploads/2018/07/DogFriendlyLBC_188-750x400.jpg",
   },
   {
+    id: 8,
     name: "Playa de Llevant",
     location: "Barcelona",
     category: "playa",
     description:
       "Playa urbana habilitada para perros durante todo el año, con duchas especiales para mascotas.",
-    // photo: "https://source.unsplash.com/featured/?dog,beach",
+    photo: "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/341000/341101-Llevant-Beach.jpg",
   },
   {
+    id: 9,
     name: "Playa El Cable",
     location: "Marbella",
     category: "playa",
     description:
       "Zona costera ideal para disfrutar del mar con tu mascota en un entorno seguro.",
-    // photo: "https://source.unsplash.com/featured/?beach,dog",
+    photo: "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/341000/341101-Llevant-Beach.jpg",
   },
   {
+    id: 10,
     name: "Área de descanso La Mancha",
     location: "A4, km 155",
     category: "area_descanso",
     description:
       "Zona tranquila en carretera con espacio verde para sacar a tu mascota.",
-    // photo: "https://source.unsplash.com/featured/?rest,area",
+    photo: "https://www.turismocanino.es/wp-content/uploads/2018/09/reas-de-servicio-que-admiten-perros-ens-Espa%C3%B1a.png",
   },
   {
+    id: 11,
     name: "Área Canina del Ebro",
     location: "Zaragoza",
     category: "area_descanso",
     description:
       "Área de servicio con espacio vallado para que tu perro pueda estirar las patas.",
-    // photo: "https://source.unsplash.com/featured/?dog,travel",
+    photo: "https://www.paradise-ebro.com/wp-content/uploads/2019/10/WhatsApp-Image-2019-03-22-at-14.33.44-1-min.jpeg",
   },
 ];
 
 exports.getAllPlaces = async () => {
   return places
 }
+
+exports.getPlaceInfo = async (placeId) => {
+  const placeAux = places.find((p) => p.id == placeId)
+  return placeAux
+}
+  

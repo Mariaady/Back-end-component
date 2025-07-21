@@ -1,4 +1,4 @@
-const { getUserInfo, doLogin, createUserInfo } = require("../services/userService")
+const { getUserInfo, doLogin, createUserInfo, modifyUser } = require("../services/userService")
 
 exports.getUserController= async (req, res) => {
     const userId = req.params.id
@@ -14,7 +14,7 @@ exports.loginUserController = async (req, res) => {
         if(!resUserInfo) throw new Error('El usuario no existe')
         res.status(200).send({ user: resUserInfo })
     } catch (error) {
-        res.sendStatus(500)
+        res.sendStatus(500).send({ error: error.message})
     }
 }
 
@@ -24,4 +24,10 @@ exports.createUserController = async (req, res)  => {
     const resUserInfo = await createUserInfo(newUser)
 
     res.status(200).send({ user: resUserInfo })
+}
+
+exports.modifyUserController = async(req, res) => {
+    const editedUser = req.body.user
+    const resUserInfo = await modifyUser(editedUser)
+    res.status(200).send({ user: resUserInfo})
 }
