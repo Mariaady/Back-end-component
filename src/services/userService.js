@@ -121,3 +121,4 @@ exports.addBooking = async(userId, placeId) => {
   users = userListAux
   return userAux
 }
+
