@@ -101,3 +101,23 @@ exports.modifyUser = async(editedUser) => {
   users = userAux
 }
 
+exports.addBooking = async(userId, placeId) => {
+  const userAux = users.find(u => u.id == userId)
+
+  if(userAux.cart) {
+    userAux.cart.push({
+      placeId
+    })
+  } else {
+    userAux.cart = [
+      {
+        placeId
+      }
+    ]
+  }
+
+  const userListAux = users.filter(u => u.id != userId)
+  userListAux.push(userAux)
+  users = userListAux
+  return userAux
+}
