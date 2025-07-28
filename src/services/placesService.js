@@ -78,7 +78,7 @@ let places = [
     category: "playa",
     description:
       "Zona costera ideal para disfrutar del mar con tu mascota en un entorno seguro.",
-    photo: "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/341000/341101-Llevant-Beach.jpg",
+    photo: "https://offloadmedia.feverup.com/valenciasecreta.com/wp-content/uploads/2021/08/22064447/shutterstock_1036303372-1-1024x683.jpg",
   },
   {
     id: 10,
@@ -87,7 +87,7 @@ let places = [
     category: "area_descanso",
     description:
       "Zona tranquila en carretera con espacio verde para sacar a tu mascota.",
-    photo: "https://www.turismocanino.es/wp-content/uploads/2018/09/reas-de-servicio-que-admiten-perros-ens-Espa%C3%B1a.png",
+    photo: "https://blog.mascotaysalud.com/wp-content/uploads/elementor/thumbs/perro-comedero-bebedero-qo5en52wfxyyjiozxsfcykwcaxxzl6v15ycsw9366g.jpg",
   },
   {
     id: 11,

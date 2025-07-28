@@ -1,4 +1,4 @@
-const { getUserInfo, doLogin, createUserInfo, modifyUser, addBooking } = require("../services/userService")
+const { getUserInfo, doLogin, createUserInfo, modifyUser, addBooking, removeBooking } = require("../services/userService")
 
 exports.getUserController= async (req, res) => {
     const userId = req.params.id
@@ -33,9 +33,18 @@ exports.modifyUserController = async(req, res) => {
 }
 
 exports.addBookingController = async(req, res) => {
-    const userId = req.body.userId
-    const placeId = req.body.placeId
+    const { userId, placeId } = req.body
 
     const resUserInfo = await addBooking(userId, placeId)
     res.status(200).send({ user: resUserInfo})
+}
+
+exports.removeBookingController = async (req, res) => {
+    try {
+        const { userId, placeId } = req.body
+        const resUserInfo = await removeBooking(userId, placeId)
+        res.status(200).send({ user: resUserInfo})
+    } catch (error) {
+        res.sendStatus(500).send({ error: error.message})
+    }
 }

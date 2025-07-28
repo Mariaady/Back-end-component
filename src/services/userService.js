@@ -1,3 +1,5 @@
+const { sendWelcomeEmail } = require("../jobsEmail/welcomeEmail")
+
 let users = [
   {
     id: 1,
@@ -86,12 +88,14 @@ exports.doLogin = async (username, password) => {
 exports.createUserInfo = async (newUser) => {
   const userAux = {
     id: Math.random().toFixed(5) * 10000,
+    isActive: false,
     ...newUser
   }
 
   users.push({
     ...userAux
   })
+  await sendWelcomeEmail(userAux)
   return userAux
 }
 
@@ -122,3 +126,14 @@ exports.addBooking = async(userId, placeId) => {
   return userAux
 }
 
+exports.removeBooking = async (userId, placeId) => {
+  const userAux = users.find(u => u.id == userId)
+  if(userAux && userAux.cart) {
+    userAux.cart = userAux.cart.filter(b => b.placeId != placeId)
+  }
+
+  const userListAux = users.filter(u => u.id != userId)
+  userListAux.push(userAux)
+  users = userListAux
+  return userAux
+}
