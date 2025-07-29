@@ -1,4 +1,6 @@
 const { getUserInfo, doLogin, createUserInfo, modifyUser, addBooking, removeBooking } = require("../services/userService")
+const generateToken = require("../utils/authToken")
+
 
 exports.getUserController= async (req, res) => {
     const userId = req.params.id
@@ -12,9 +14,18 @@ exports.loginUserController = async (req, res) => {
         const password = req.body.password
         const resUserInfo = await doLogin(username, password)
         if(!resUserInfo) throw new Error('El usuario no existe')
-        res.status(200).send({ user: resUserInfo })
+        
+        const payload = {
+            id: resUserInfo.id,
+            name: resUserInfo.name,
+            role: resUserInfo.role || 'user'
+        }
+
+        const token = generateToken(payload,false)
+        const token_refresh = generateToken(payload, true)
+        res.status(200).send({ user: resUserInfo, token, token_refresh })
     } catch (error) {
-        res.sendStatus(500).send({ error: error.message})
+        res.status(500).send({ error: error.message})
     }
 }
 

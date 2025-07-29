@@ -1,3 +1,4 @@
+const Place = require('../models/placesModel')
 let places = [
   {
     id: 1,
@@ -101,11 +102,36 @@ let places = [
 ];
 
 exports.getAllPlaces = async () => {
-  return places
-}
+  try {
+    const allPlaces = await Place.find();
+    return allPlaces
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 
 exports.getPlaceInfo = async (placeId) => {
-  const placeAux = places.find((p) => p.id == placeId)
-  return placeAux
+    try {
+    const place = await Place.findById(placeId);
+    return place;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+exports.createPlace = async (newPlace) => {
+  try {
+    const createdPlace = await Place.create(newPlace);
+    return createdPlace;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+exports.removePlace = async(placeId) => {
+  try {
+    await Place.findByIdAndDelete(placeId)
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }
-  

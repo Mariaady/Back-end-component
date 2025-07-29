@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const generateToken = require("../utils/authToken");
+
 
 
 const verifyToken = (req, res, next) => {
