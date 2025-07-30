@@ -1,14 +1,12 @@
 const jwt = require("jsonwebtoken");
 const generateToken = require("../utils/authToken");
 
-
-
 const verifyToken = (req, res, next) => {
   const token = req.header("auth-token");
   if (!token) return res.status(401).send("Acceso denegado");
   try {
     const payload = jwt.verify(token, process.env.SECRET_TOKEN);
-    req.payload = payload; 
+    req.payload = payload;
     next();
   } catch (error) {
     try {
@@ -27,7 +25,7 @@ const verifyAdmin = (req, res, next) => {
     if (role !== "admin") {
       return res.status(401).send("No tienes permisos");
     }
-    next(); 
+    next();
   } catch (error) {
     res.status(401).send("Token expired");
   }
@@ -47,6 +45,5 @@ const getTokens = async (req, res) => {
     res.status(500).send({ status: "Failed", error: error.message });
   }
 };
-
 
 module.exports = { verifyToken, verifyAdmin, getTokens };
