@@ -17,7 +17,7 @@ let users = [
         size: "mediano",
         age: "4",
         photo:
-          "https://www.google.com/url?sa=i&url=https%3A%2F%2Fonlyfresh.com%2Fblogs%2Fnoticias%2Fcomo-educar-a-un-border-collie&psig=AOvVaw0mBMK0ieLOs12ff4Hm_CWC&ust=1753799110669000&source=images&cd=vfe&opi=89978449&ved=2ahUKEwjmq6H54N-OAxWKdqQEHYjRIwoQjRx6BAgAEBo",
+          "https://onlyfresh.com/cdn/shop/articles/shutterstock_1784823827.jpg?v=1643197988",
       },
     ],
   },
@@ -37,7 +37,7 @@ let users = [
         size: "pequeño",
         age: "2",
         photo:
-          "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.purina.es%2Fencuentra-mascota%2Frazas-de-gato%2Ffold-escoces&psig=AOvVaw1W1wQb6BwZenXhODYOZ5xr&ust=1753799131931000&source=images&cd=vfe&opi=89978449&ved=2ahUKEwitg7OD4d-OAxU3WqQEHfsLN_UQjRx6BAgAEBo",
+          "https://www.purina.es/sites/default/files/styles/ttt_image_original/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-06Scottish20Fold.2.webp?itok=yUk29DRe",
       },
     ],
   },
@@ -83,13 +83,13 @@ let users = [
   },
   {
     id: 5,
-    name: "María Ramirez",
+    name: "María de Yllescas",
     username: "mariaady",
     password: "1234",
     role: "admin",
     profilePhoto:
       "https://plus.unsplash.com/premium_photo-1690587673708-d6ba8a1579a5?q=80&w=1958&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    gmail: "maria.ramirez@gmail.com",
+    gmail: "maria.yllescas@gmail.com",
     pets: [
       {
         namePet: "Xena",
