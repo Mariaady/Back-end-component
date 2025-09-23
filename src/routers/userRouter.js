@@ -1,7 +1,8 @@
 const express = require("express");
 const {
-  getUserController,
-  loginUserController,
+  getAllUsersController,
+  getUserInfoController,
+  doLoginController,
   createUserController,
   modifyUserController,
   addBookingController,
@@ -10,10 +11,11 @@ const {
 
 const router = express.Router();
 
-router.get("/:id", getUserController);
-router.post("/", loginUserController);
+router.get("/", getAllUsersController);
+router.get("/:id", getUserInfoController);
+router.post("/login", doLoginController);
 router.post("/register", createUserController);
-router.post("/modify/:id", modifyUserController);
+router.patch("/modify/:id", modifyUserController);
 router.put("/addBooking", addBookingController);
 router.put("/removeBooking", removeBookingController);
 

@@ -1,67 +1,77 @@
-const {
-  getUserInfo,
-  doLogin,
-  createUserInfo,
-  modifyUser,
-  addBooking,
-  removeBooking,
-} = require("../services/userService");
+const userService = require("../services/userService");
 const generateToken = require("../utils/authToken");
 
-exports.getUserController = async (req, res) => {
-  const userId = req.params.id;
-  const resUserInfo = await getUserInfo(userId);
-  res.status(200).send({ user: resUserInfo });
+exports.getAllUsersController = async (req, res) => {
+  try {
+    const users = await userService.getAllUsers();
+    res.status(200).send(users);
+  } catch (error) {
+    res.status(500).send({ status: "Failed", error: error.message });
+  }
 };
 
-exports.loginUserController = async (req, res) => {
+exports.getUserInfoController = async (req, res) => {
   try {
-    const username = req.body.username;
-    const password = req.body.password;
-    const resUserInfo = await doLogin(username, password);
-    if (!resUserInfo) throw new Error("El usuario no existe");
+    const { userId } = req.params;
+    const user = await userService.getUserInfo(userId);
+    if (!user) {
+      return res.status(404).send("El usuario no existe");
+    }
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(500).send({ status: "Failed", error: error.message });
+  }
+};
 
-    const payload = {
-      id: resUserInfo.id,
-      name: resUserInfo.name,
-      role: resUserInfo.role || "user",
-    };
+exports.doLoginController = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await userService.doLogin(username, password);
+    const payload = { id: user._id.toString() };
+    const token = generateToken(payload);
+    res.status(200).json({ user, token });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-    const token = generateToken(payload, false);
-    const token_refresh = generateToken(payload, true);
-    res.status(200).send({ user: resUserInfo, token, token_refresh });
+exports.createUserController = async (req, res) => {
+  try {
+    const newUser = req.body;
+    const resUserInfo = await userService.createUserInfo(newUser);
+    res.status(200).send({ user: resUserInfo });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
 };
 
-exports.createUserController = async (req, res) => {
-  const newUser = req.body.newUser;
-
-  const resUserInfo = await createUserInfo(newUser);
-
-  res.status(200).send({ user: resUserInfo });
-};
-
 exports.modifyUserController = async (req, res) => {
-  const editedUser = req.body.user;
-  const resUserInfo = await modifyUser(editedUser);
-  res.status(200).send({ user: resUserInfo });
+  try {
+    const editedUser = req.body;
+    const resUserInfo = await userService.modifyUser(editedUser.user);
+    res.status(200).send({ user: resUserInfo });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
 };
 
 exports.addBookingController = async (req, res) => {
-  const { userId, placeId } = req.body;
+  try {
+    const { userId, placeId } = req.body;
 
-  const resUserInfo = await addBooking(userId, placeId);
-  res.status(200).send({ user: resUserInfo });
+    const resUserInfo = await userService.addBooking(userId, placeId);
+    res.status(200).send({ user: resUserInfo });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
 };
 
 exports.removeBookingController = async (req, res) => {
   try {
     const { userId, placeId } = req.body;
-    const resUserInfo = await removeBooking(userId, placeId);
+    const resUserInfo = await userService.removeBooking(userId, placeId);
     res.status(200).send({ user: resUserInfo });
   } catch (error) {
-    res.sendStatus(500).send({ error: error.message });
+    res.status(500).send({ error: error.message });
   }
 };

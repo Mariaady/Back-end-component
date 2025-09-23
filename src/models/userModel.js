@@ -22,6 +22,9 @@ const petSchema = new Schema({
   age: {
     type: String,
   },
+  photo: {
+    type: String,
+  },
 });
 
 const userSchema = new Schema({
@@ -37,6 +40,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+    select: false,
   },
   profilePhoto: {
     type: String,
@@ -48,15 +52,27 @@ const userSchema = new Schema({
     unique: true,
   },
   pets: [petSchema],
+  cart: [
+    {
+      placeId: {
+        type: Schema.Types.ObjectId,
+        ref: "Place",
+      },
+      cartAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-});
-
-userSchema.pre(/^find/, function (next) {
-  this.select("-password");
-  next();
 });
 
 const userModel = mongoose.model("User", userSchema, "user");

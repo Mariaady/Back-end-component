@@ -1,170 +1,90 @@
+const bcrypt = require("bcrypt");
+const User = require("../models/userModel");
 const { sendWelcomeEmail } = require("../jobsEmail/welcomeEmail");
-
-let users = [
-  {
-    id: 1,
-    name: "Sofía Martinez",
-    username: "sofiaamartinez",
-    password: "1234",
-    profilePhoto:
-      "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVyc29uYXxlbnwwfHwwfHx8MA%3D%3D",
-    gmail: "sofia.martinez@gmail.com",
-    pets: [
-      {
-        namePet: "Rocky",
-        species: "perro",
-        breed: "Border Collie",
-        size: "mediano",
-        age: "4",
-        photo:
-          "https://onlyfresh.com/cdn/shop/articles/shutterstock_1784823827.jpg?v=1643197988",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Carlos Ramirez",
-    username: "carlossramirez",
-    password: "1234",
-    profilePhoto:
-      "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    gmail: "carlos.ramirez@gmail.com",
-    pets: [
-      {
-        namePet: "Luna",
-        species: "gato",
-        breed: "Scottish Fold",
-        size: "pequeño",
-        age: "2",
-        photo:
-          "https://www.purina.es/sites/default/files/styles/ttt_image_original/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-06Scottish20Fold.2.webp?itok=yUk29DRe",
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Valentina Gómez",
-    username: "valeentinagoomez",
-    password: "1234",
-    profilePhoto:
-      "https://img.freepik.com/foto-gratis/estilo-vida-emociones-gente-concepto-casual-confiado-agradable-sonriente-mujer-asiatica-brazos-cruzados-pecho-seguro-listo-ayudar-escuchando-companeros-trabajo-participando-conversacion_1258-59335.jpg?semt=ais_hybrid&w=740",
-    gmail: "valentina.gomez@gmail.com",
-    pets: [
-      {
-        namePet: "Simba",
-        species: "gato",
-        breed: "Maine Coon",
-        size: "mediano",
-        age: "5",
-        photo:
-          "https://mymodernmet.com/wp/wp-content/uploads/2020/10/maine-coon-cats-6.jpg",
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: "Andrés Torres",
-    username: "anndresstorress",
-    password: "1234",
-    profilePhoto:
-      "https://img.freepik.com/foto-gratis/joven-hombre-barbudo-camisa-rayas_273609-5677.jpg?semt=ais_hybrid&w=740",
-    gmail: "andres.torres@gmail.com",
-    pets: [
-      {
-        namePet: "Thor",
-        species: "perro",
-        breed: "Pastor Alemán",
-        size: "grande",
-        age: "7",
-        photo:
-          "https://www.sentidoanimal.es/wp-content/uploads/2019/07/Pastor-alem%C3%A1n.jpg",
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "María de Yllescas",
-    username: "mariaady",
-    password: "1234",
-    role: "admin",
-    profilePhoto:
-      "https://plus.unsplash.com/premium_photo-1690587673708-d6ba8a1579a5?q=80&w=1958&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    gmail: "maria.yllescas@gmail.com",
-    pets: [
-      {
-        namePet: "Xena",
-        species: "perro",
-        breed: "American bully",
-        size: "mediano",
-        age: "12",
-        photo:
-          "https://www.conductorespreventor.es/wp-content/uploads/2025/01/American-bully-licencia-ppp-1030x687.jpg",
-      },
-    ],
-  },
-];
-
-exports.getUserInfo = async (userId) => {
-  const userAux = users.find((u) => u.id == userId);
-  return userAux;
+exports.getAllUsers = async () => {
+  try {
+    const users = await User.find();
+    if (!users || users.length === 0) {
+      throw new Error("No hay usuarios registrados");
+    }
+    return users;
+  } catch (error) {
+    throw new Error(error.message || "Error al obtener los usuarios");
+  }
 };
-
+exports.getUserInfo = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+    if (!user) throw new Error("Usuario no encontrado");
+    return user;
+  } catch (error) {
+    throw new Error(error.message || "Error al obtener el usuario");
+  }
+};
 exports.doLogin = async (username, password) => {
-  const userAux = users.find(
-    (u) => u.username == username && u.password == password
-  );
-  return userAux;
+  try {
+    const user = await User.findOne({ username }).select("+password");
+    if (!user) throw new Error("Usuario no encontrado");
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) throw new Error("Contraseña incorrecta");
+    return user;
+  } catch (error) {
+    throw new Error(error.message || "Error en el login");
+  }
 };
 
 exports.createUserInfo = async (newUser) => {
-  const userAux = {
-    id: Math.random().toFixed(5) * 10000,
-    isActive: false,
-    ...newUser,
-  };
-
-  users.push({
-    ...userAux,
-  });
-  await sendWelcomeEmail(userAux);
-  return userAux;
+  try {
+    const hashedPassword = await bcrypt.hash(newUser.password, 10);
+    const userAux = {
+      ...newUser,
+      password: hashedPassword,
+      isActive: false,
+    };
+    const createUser = await User.create(userAux);
+    await sendWelcomeEmail(createUser);
+    return createUser;
+  } catch (error) {
+    throw new Error(error.message || "Error creando usuario");
+  }
 };
 
 exports.modifyUser = async (editedUser) => {
-  const userAux = users.filter((u) => u.id != editedUser.id);
-  userAux.push(editedUser);
-  users = userAux;
+  try {
+    if (editedUser.password) {
+      editedUser.password = await bcrypt.hash(editedUser.password, 10);
+    }
+    const updateUser = await User.findByIdAndUpdate(editedUser.id, editedUser, {
+      new: true,
+    });
+    return updateUser;
+  } catch (error) {
+    throw new Error(error.message || "Error modificando usuario");
+  }
 };
 
 exports.addBooking = async (userId, placeId) => {
-  const userAux = users.find((u) => u.id == userId);
-
-  if (userAux.cart) {
-    userAux.cart.push({
-      placeId,
-    });
-  } else {
-    userAux.cart = [
-      {
-        placeId,
-      },
-    ];
+  try {
+    const updateUser = await User.findByIdAndUpdate(
+      userId,
+      { $push: { cart: { placeId } } },
+      { new: true }
+    );
+    return updateUser;
+  } catch (error) {
+    throw new Error(error.message || "Error añadiendo reserva");
   }
-
-  const userListAux = users.filter((u) => u.id != userId);
-  userListAux.push(userAux);
-  users = userListAux;
-  return userAux;
 };
 
 exports.removeBooking = async (userId, placeId) => {
-  const userAux = users.find((u) => u.id == userId);
-  if (userAux && userAux.cart) {
-    userAux.cart = userAux.cart.filter((b) => b.placeId != placeId);
+  try {
+    const updateUser = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { cart: { placeId } } },
+      { new: true }
+    );
+    return updateUser;
+  } catch (error) {
+    throw new Error(error.message || "Error eliminando reserva");
   }
-
-  const userListAux = users.filter((u) => u.id != userId);
-  userListAux.push(userAux);
-  users = userListAux;
-  return userAux;
 };

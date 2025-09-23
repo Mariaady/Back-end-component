@@ -92,8 +92,8 @@ let places = [
   },
   {
     id: 10,
-    name: "Área de descanso La Mancha",
-    location: "A4, km 155",
+    name: "Área de descanso Los Molinos",
+    location: "La Mancha",
     category: "area_descanso",
     description:
       "Zona tranquila en carretera con espacio verde para sacar a tu mascota.",
