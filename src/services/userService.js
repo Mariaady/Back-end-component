@@ -56,6 +56,7 @@ exports.modifyUser = async (editedUser) => {
     }
     const updateUser = await User.findByIdAndUpdate(editedUser.id, editedUser, {
       new: true,
+      runValidators: true,
     });
     return updateUser;
   } catch (error) {

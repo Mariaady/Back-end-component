@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const generateToken = require("../utils/authToken");
 
 const verifyToken = (req, res, next) => {
-  const token = req.header("auth-token");
+  const token = req.header("auth-token") || req.header("Auth-Token");
   if (!token) return res.status(401).send("Acceso denegado");
   try {
     const payload = jwt.verify(token, process.env.SECRET_TOKEN);
