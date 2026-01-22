@@ -43,10 +43,17 @@ exports.doLoginController = async (req, res) => {
 exports.createUserController = async (req, res) => {
   try {
     const newUser = req.body;
-    const resUserInfo = await userService.createUserInfo(newUser);
-    res.status(200).send({ user: resUserInfo });
+    const user = await userService.createUserInfo(newUser);
+    const payload = {
+      id: user._id.toString(),
+      name: user.name,
+      role: user.role,
+    };
+    const token = generateToken(payload, false);
+    const refreshToken = generateToken(payload, true);
+    res.status(200).json({ user, token, refreshToken });
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
