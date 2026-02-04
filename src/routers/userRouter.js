@@ -7,8 +7,9 @@ const {
   modifyUserController,
   addBookingController,
   removeBookingController,
+  removeUserController,
 } = require("../controllers/userController");
-const { verifyToken } = require("../middlewares/auth");
+const { verifyToken, verifyAdmin } = require("../middlewares/auth");
 
 const router = express.Router();
 
@@ -22,5 +23,6 @@ router.post("/register", createUserController);
 router.patch("/modify/:id", modifyUserController);
 router.put("/addBooking", addBookingController);
 router.put("/removeBooking", removeBookingController);
+router.delete("/delete/:id", verifyToken, verifyAdmin, removeUserController);
 
 module.exports = router;

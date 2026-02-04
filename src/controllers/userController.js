@@ -89,3 +89,12 @@ exports.removeBookingController = async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 };
+exports.removeUserController = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    await userService.removeUser(userId);
+    res.status(200).send({ message: "El usuario ha sido eliminado con éxito" });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};

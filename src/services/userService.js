@@ -69,7 +69,7 @@ exports.addBooking = async (userId, placeId) => {
     const updateUser = await User.findByIdAndUpdate(
       userId,
       { $push: { cart: { placeId } } },
-      { new: true }
+      { new: true },
     );
     return updateUser;
   } catch (error) {
@@ -82,10 +82,18 @@ exports.removeBooking = async (userId, placeId) => {
     const updateUser = await User.findByIdAndUpdate(
       userId,
       { $pull: { cart: { placeId } } },
-      { new: true }
+      { new: true },
     );
     return updateUser;
   } catch (error) {
     throw new Error(error.message || "Error eliminando reserva");
+  }
+};
+
+exports.removeUser = async (userId) => {
+  try {
+    await User.findByIdAndDelete(userId);
+  } catch (error) {
+    throw new Error(error.message || "Error eliminando usuario");
   }
 };
