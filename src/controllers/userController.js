@@ -12,8 +12,8 @@ exports.getAllUsersController = async (req, res) => {
 
 exports.getUserInfoController = async (req, res) => {
   try {
-    const { userId } = req.params;
-    const user = await userService.getUserInfo(userId);
+    const { id } = req.params;
+    const user = await userService.getUserInfo(id);
     if (!user) {
       return res.status(404).send("El usuario no existe");
     }
@@ -91,7 +91,7 @@ exports.removeBookingController = async (req, res) => {
 };
 exports.removeUserController = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = req.payload.id;
     await userService.removeUser(userId);
     res.status(200).send({ message: "El usuario ha sido eliminado con éxito" });
   } catch (error) {

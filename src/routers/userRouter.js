@@ -23,6 +23,6 @@ router.post("/register", createUserController);
 router.patch("/modify/:id", modifyUserController);
 router.put("/addBooking", addBookingController);
 router.put("/removeBooking", removeBookingController);
-router.delete("/delete/:id", verifyToken, verifyAdmin, removeUserController);
+router.delete("/delete", verifyToken, removeUserController);
 
 module.exports = router;
