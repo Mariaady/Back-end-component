@@ -34,6 +34,7 @@ exports.doLoginController = async (req, res) => {
     };
     const token = generateToken(payload, false);
     const refreshToken = generateToken(payload, true);
+    user.password = undefined;
     res.status(200).json({ user, token, refreshToken });
   } catch (error) {
     res.status(401).json({ error: error.message });
@@ -57,10 +58,29 @@ exports.createUserController = async (req, res) => {
   }
 };
 
+exports.createAdminController = async (req, res) => {
+  try {
+    const newAdmin = req.body;
+    newAdmin.role = "admin";
+    const user = await userService.createUserInfo(newAdmin);
+    const payload = {
+      id: user._id.toString(),
+      name: user.name,
+      role: user.role,
+    };
+    const token = generateToken(payload, false);
+    const refreshToken = generateToken(payload, true);
+    res.status(200).json({ user, token, refreshToken });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 exports.modifyUserController = async (req, res) => {
   try {
     const { id } = req.params;
     const editedUser = req.body;
+    delete editedUser.password;
     editedUser.id = id;
     const resUserInfo = await userService.modifyUser(editedUser);
     res.status(200).send({ user: resUserInfo });

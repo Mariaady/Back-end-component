@@ -9,10 +9,9 @@ PawTrip es una aplicación web Full Stack orientada a personas que viajan con ma
 
 ## Instalación y Ejecución
 1. Clonar repo
-2. Instalar dependencias
+2. Instalar dependencias: `npm install`
 3. Ejecutar:
  `npm start`
- `npm run dev`
 
 ## Licencia
 Este proyecto está bajo la licencia ISC License
@@ -20,17 +19,26 @@ Este proyecto está bajo la licencia ISC License
 ## Endpoints 
 
 userRouter:
-- `GET /user/:id` Obtener un usuario por ID
-- `POST /user/` Iniciar sesión, login 
+- `GET /user/` Obtener todos los usuarios
+- `GET /user/:id` Obtener un usuario por su ID
+
+- `POST /user/login` Iniciar sesión, login 
 - `POST /user/register` Registrar nuevo usuario
-- `POST /user/modify/:id` Modificar usuario existente
+- `POST /user/register/admin` Registrar un usuario con role "admin"
+
+- `PATCH /user/modify/:id` Modificar usuario existente
+
 - `PUT /user/addBooking` Añadir reserva al usuario (requiere token)
 - `PUT /user/RemoveBooking` Eliminar reserva del usuario (require token)
 
-placeRouter:
+- `DELETE /user/delete` Eliminar un usuario 
+
+placesRouter:
 - `GET /places/` Obtener todos los lugares 
 - `GET /places/detail/:id` Obtener detalle del lugar por ID
+
 - `POST /places/create` Crear nuevo lugar (solo admin, requiere token de administrador)
+
 - `DELETE /places/delete/:id` Eliminar lugar por ID (solo admin, requiere token de administrador)
 
 ## Autor
